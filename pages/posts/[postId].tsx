@@ -55,7 +55,8 @@ export const getStaticProps : GetStaticProps<PostDetailPageProps> = async (
     return {
         props : {
             post: data
-        }
+        },
+        revalidate: 5,
     }
 }
 
