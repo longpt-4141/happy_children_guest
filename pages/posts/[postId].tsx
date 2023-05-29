@@ -17,21 +17,22 @@ const PostDetailPage = ({post}: PostDetailPageProps) => {
             {post.title}
         </p>
         <p>
-            {post.author}
+            id : 
+            {post.id}
         </p>
     </>
   )
 }
 
 export const getStaticPaths: GetStaticPaths = async() => {
-    const response = await fetch('https://js-post-api.herokuapp.com/api/posts?_page=1')
+    const response = await fetch('http://localhost:8080/news')
     const data = await response.json()
-
+    // console.log({data})
 
     return {
-        paths: data.data.map((post:any) => ({
+        paths: data.map((post:any) => ({
             params: {
-                postId : post.id
+                postId : post.id.toString()
             }
         })),
         fallback: false
@@ -49,9 +50,9 @@ export const getStaticProps : GetStaticProps<PostDetailPageProps> = async (
         }
     }
 
-    const response = await fetch(`https://js-post-api.herokuapp.com/api/posts/${postId}`)
+    const response = await fetch(`http://localhost:8080/news/${postId}`)
     const data = await response.json()
-    console.log('\nGet static props',context.params?.postId)
+    console.log('\nGet static props',postId)
     return {
         props : {
             post: data

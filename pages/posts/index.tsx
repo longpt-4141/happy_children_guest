@@ -33,8 +33,8 @@ export const getStaticProps : GetStaticProps<PostsPageProps> = async (
  
     const response = await fetch(`http://localhost:8080/news`)
     const data = await response.json()
-    console.log('\nGet static data', data)
-    console.log('\nGet static props', context)
+    // console.log('\nGet static data', data)
+    console.log('\nGet static props >>>>', context)
     return {
         props : {
             posts: data
