@@ -1,0 +1,22 @@
+<!ELEMENT svg (g,path+,rect+,defs)>
+<!ATTLIST svg viewBox CDATA #REQUIRED>
+<!ATTLIST svg fill NMTOKEN #REQUIRED>
+<!ELEMENT g (path+)>
+<!ATTLIST g clipPath CDATA #REQUIRED>
+<!ELEMENT path EMPTY>
+<!ATTLIST path d CDATA #REQUIRED>
+<!ATTLIST path fill CDATA #IMPLIED>
+<!ATTLIST path stroke CDATA #IMPLIED>
+<!ATTLIST path strokeWidth NMTOKEN #IMPLIED>
+<!ATTLIST path strokeidth NMTOKEN #IMPLIED>
+<!ELEMENT rect EMPTY>
+<!ATTLIST rect x NMTOKEN #IMPLIED>
+<!ATTLIST rect y NMTOKEN #IMPLIED>
+<!ATTLIST rect width NMTOKEN #REQUIRED>
+<!ATTLIST rect height NMTOKEN #REQUIRED>
+<!ATTLIST rect fill CDATA #REQUIRED>
+<!ATTLIST rect rx NMTOKEN #IMPLIED>
+<!ATTLIST rect transform CDATA #IMPLIED>
+<!ELEMENT defs (clipPath)>
+<!ELEMENT clipPath (rect)>
+<!ATTLIST clipPath id NMTOKEN #REQUIRED>

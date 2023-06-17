@@ -1,8 +1,9 @@
 import { EmptyLayout } from '@/components/layouts'
 import { AppPropsWithLayout } from '@/models'
-import '@/styles/globals.css'
+import '@/styles/globals.scss'
 import type { AppProps } from 'next/app'
-import {SessionProvider} from 'next-auth/react'
+import {SessionProvider} from 'next-auth/react';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   console.log('app re render')
@@ -11,9 +12,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
 
   return (
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ParallaxProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ParallaxProvider>
     </SessionProvider>
   )
 }

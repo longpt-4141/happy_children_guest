@@ -14,3 +14,7 @@ declare namespace NodeJS {
       AUTH0_SECRET: string
     }
   }
+  declare module '*.svg' {
+    const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+    export default ReactComponent;
+  }
