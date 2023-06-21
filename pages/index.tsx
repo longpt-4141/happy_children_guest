@@ -581,7 +581,7 @@ const  Home : NextPageWithLayout = () => {
                 </Link>
               </motion.div>
             </div>
-            <Arrow width={40} className=' -rotate-90' style={{stroke: 'white'}} />
+            <Arrow width={40 } className=' -rotate-90' style={{stroke: 'white'}} />
           </footer>
         </main>
     </>

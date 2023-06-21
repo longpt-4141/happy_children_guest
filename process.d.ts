@@ -12,6 +12,8 @@ declare namespace NodeJS {
       GOOGLE_SECRET: string
       AUTH0_ID: string
       AUTH0_SECRET: string
+      NEXT_PUBLIC_API_URL_DEV: string
+      NEXT_PUBLIC_API_URL_PRODUCTION: string
     }
   }
   declare module '*.svg' {

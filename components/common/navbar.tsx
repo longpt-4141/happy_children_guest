@@ -47,7 +47,7 @@ export default function NavBar (props: INavBarProps) {
 
   return (
     <header id="l-header" style={{opacity: 1, transform: "matrix(1, 0, 0, 1, 0, 0)"}} className={NavbarStyle.lHeader}>
-            <div className='fixed right-48'>
+            <div className='fixed right-48 z-[102]'>
               <Link href='/donate' className="bg-white border-2 border-mainPink rounded-full px-20 py-3 relative transition duration-150 ease-out hover:ease-in top-8 hover:bg-mainPink group hover:border-white">
                 <span className="uppercase tracking-wider font-semibold font-Montserrat text-mainPink group-hover:text-white">Donate</span>
               </Link>

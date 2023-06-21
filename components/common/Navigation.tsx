@@ -103,7 +103,7 @@ export const Navigation = ({ toggle }: any) => (
       </div>
       <div className='column2 grid grid-cols-2 gap-6 relative z-2'>
       {subMenuItems.map(i => (
-        <MenuItem i={i} key={i} type={`sub`} toggle={toggle}/>
+        <MenuItem i={i} key={i.id} type={`sub`} toggle={toggle}/>
       ))}
       </div>
 

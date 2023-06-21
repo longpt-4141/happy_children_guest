@@ -95,3 +95,82 @@ a {
     color-scheme: dark;
   }
 }
+
+.ant-tabs-nav {
+  margin-bottom: 0!important;
+}
+
+.ant-tabs-content-holder {
+  border: 1px solid #f0f0f0;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 20px 20px;
+}
+
+.donate-form .ant-form-item-row {
+  justify-content: space-around;
+}
+
+
+.error-background {
+  background: #ef476f !important;
+
+  .error-progress-bar {
+      background: rgb(249, 191, 191) !important;
+  }
+  .error-font-size {
+      color: #fff !important;
+      font-size: 16px; 
+      padding: 12px;
+
+      .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
+          margin-inline-end: 20px;
+          
+          svg {
+              fill: #fff !important;
+          }
+      }
+  }
+}
+
+.success-background {
+  background: #06d6a0 !important;
+
+  .success-progress-bar {
+      background: #00ffd0 !important;
+  }
+  .success-font-size {
+      color: #fff !important;
+      font-size: 16px; 
+      padding: 12px;
+
+      .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
+          margin-inline-end: 20px;
+          
+          svg {
+              fill: #fff !important;
+          }
+      }
+  }
+}
+
+.warning-background {
+  background: #ffc61a !important;
+
+  .warning-progress-bar {
+      background: rgb(255, 179, 17) !important;
+  }
+  .warning-font-size {
+      color: #fff !important;
+      font-size: 16px; 
+      padding: 12px;
+
+      .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter {
+          margin-inline-end: 20px;
+          
+          svg {
+              fill: #fff !important;
+          }
+      }
+  }
+}
