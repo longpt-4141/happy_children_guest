@@ -25,7 +25,7 @@ const PostDetailPage = ({post}: PostDetailPageProps) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async() => {
-    const response = await fetch('http://localhost:8080/news')
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DEV || process.env.NEXT_PUBLIC_API_URL_PRODUCTION}/news`)
     const data = await response.json()
     // console.log({data})
 
@@ -50,7 +50,7 @@ export const getStaticProps : GetStaticProps<PostDetailPageProps> = async (
         }
     }
 
-    const response = await fetch(`http://localhost:8080/news/${postId}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DEV || process.env.NEXT_PUBLIC_API_URL_PRODUCTION}/news/${postId}`)
     const data = await response.json()
     console.log('\nGet static props',postId)
     return {
