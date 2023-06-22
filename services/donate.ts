@@ -29,7 +29,7 @@ const getQRCodeImage = async (amount: string, message: string) => {
             },
             {
                 headers: {
-                    'access-control-allow-origin' : '*',
+                    // 'access-control-allow-origin' : '*',
                     'x-client-id': '54802ae1-44a1-4db7-abdc-856d884e87bb',
                     'x-api-key': '672fb495-22e6-4f3f-bf76-d345b35550be',
                     'Content-Type': 'application/json',
