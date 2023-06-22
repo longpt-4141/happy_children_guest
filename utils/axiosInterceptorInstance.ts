@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 const axiosInterceptorInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL_DEV || process.env.NEXT_PUBLIC_API_URL_PRODUCTION, // Replace with your API base URL
