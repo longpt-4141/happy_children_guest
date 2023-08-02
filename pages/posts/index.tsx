@@ -61,7 +61,7 @@ export const getStaticProps : GetStaticProps<PostsPageProps> = async (
     context : GetStaticPropsContext
 ) => {
  
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_PRODUCTION}/news`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_DEV || process.env.NEXT_PUBLIC_API_URL_PRODUCTION}/news`)
     const data = await response.json()
     // console.log('\nGet static data', data)
     console.log('\nGet static props >>>>', context)

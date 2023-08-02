@@ -14,7 +14,9 @@ module.exports = {
       colors: {
         trueGray: colors.neutral,
         mainPink: '#F89A85',
-        textBlack: '#171b1d'
+        textBlack: '#171b1d',
+        subPink: "#FEE8C2",
+        mainOrange: "#EB6446",
       },
       keyframes: {
         menuIn: {

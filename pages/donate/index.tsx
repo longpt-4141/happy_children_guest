@@ -1,3 +1,5 @@
+import FundDonate from '@/components/donate/FundDonate';
+import ItemDonate from '@/components/donate/ItemDonate';
 import NormalDonate from '@/components/donate/NormalDonate';
 import { Tabs, TabsProps } from 'antd';
 import React from 'react'
@@ -9,18 +11,18 @@ const DonatePage = (props: Props) => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: <div className='text-[#EB6446] text-base'>Quỹ chung</div>,
+      label: <div className='text-textBlack '>Quỹ chung</div>,
       children: <NormalDonate />,
     },
     {
       key: '2',
-      label: <div className='text-[#EB6446] text-base'>Quyên góp sự kiện</div>,
-      children: '3', 
+      label: <div className='text-textBlack '>Quyên góp sự kiện</div>,
+      children: <FundDonate />, 
     },
     {
       key: '3',
-      label: <div className='text-[#EB6446] text-base'>Từ thiện hiện vật</div>,
-      children: '2', 
+      label: <div className='text-textBlack '>Từ thiện hiện vật</div>,
+      children: <ItemDonate />, 
     },
   ];
 
@@ -41,9 +43,8 @@ const DonatePage = (props: Props) => {
             </div>
         </div>
         <div className="lowerlayer bg-mainPink md:h-80">
-       
         </div>
-        <div className="news_body bg-[#fff] md:w-screen-[85] m-auto md:py-10 md:px-16  relative -top-52">
+        <div className="donate_body bg-[#fff] md:w-screen-[85] m-auto md:py-10 md:px-16  relative -top-52">
         <Tabs
           type="card"
           items={items}

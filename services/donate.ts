@@ -15,7 +15,7 @@ const getBanksInfo = async () => {
       }
 }
 
-const getQRCodeImage = async (amount: string, message: string) => {
+const getQRCodeImage = async (amount: string, message: string, email: string) => {
     try {
         const response = await axios.post(
             'https://api.vietqr.io/v2/generate',
@@ -23,7 +23,7 @@ const getQRCodeImage = async (amount: string, message: string) => {
                 'accountNo': '1021681661',
                 'accountName': 'PHAM THANH LONG',
                 'acqId': '970436',
-                'addInfo': message,
+                'addInfo': `${email} - ${message} - CK Tu Thien HAPPY CHILDREN`,
                 'amount': amount,
                 'template': 'print'
             },
@@ -65,4 +65,17 @@ const sendDonateTransaction = async (transaction : TransactionObj) => {
     }
 }
 
-export {getBanksInfo, getQRCodeImage,sendDonateTransaction}
+const makeItemDonation = async (transaction : TransactionObj) => {
+    try {
+        const response = await axiosInterceptorInstance.post(
+            '/transaction/guest-make-item-donation',
+            transaction,
+        );
+        console.log(response.data);
+        return response.data
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export {getBanksInfo, getQRCodeImage,sendDonateTransaction,makeItemDonation}

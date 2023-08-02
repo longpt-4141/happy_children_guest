@@ -11,7 +11,10 @@ const NormalDonate = (props: Props) => {
   const [form] = Form.useForm();
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
-  const [donorInfo, setDonorInfo] = useState({});
+  const [donorInfo, setDonorInfo] = useState({
+    username: '',
+    email: ''
+  });
   const [banksInfo, setBanksInfo] = useState([]);
   const [QRCodeImage, setQRCodeImage] = useState('')
 
@@ -42,13 +45,14 @@ const NormalDonate = (props: Props) => {
   
   const handleRenderQRCode = () => {
     form
-      .validateFields(['amount', 'message'])
+      .validateFields(['send_amount', 'message'])
       .then(async (value) => {
         // Here make api call of something else
         console.log({value})
-        const amount = value.amount
+        const amount = value.send_amount
         const message = value.message
-        const res = await getQRCodeImage(amount, message)
+        const email = donorInfo.email
+        const res = await getQRCodeImage(amount, message,email )
         console.log(res)
         setQRCodeImage(res.data.qrDataURL)
       })
@@ -65,7 +69,7 @@ const NormalDonate = (props: Props) => {
                     label="Họ và tên"
                     name="username"
                     rules={[{ required: true, message: 'Hãy nhập tên của bạn!' }]}
-                    className='donate-form'
+                    className='donate-form font-'
                   >
                     <Input />
                   </Form.Item>
@@ -103,7 +107,7 @@ const NormalDonate = (props: Props) => {
       content: <>
       <Form.Item
         className='donate-form'
-        name="amount"
+        name="send_amount"
         label={<p>Số tiền từ thiện</p>}
         rules={[
           {
@@ -157,7 +161,7 @@ const NormalDonate = (props: Props) => {
 
   const done = () => {
     form
-      .validateFields(['amount','message'])
+      .validateFields(['send_amount','message'])
       .then(async (value) => {
         // Here make api call of something else
         console.log({value})
@@ -199,20 +203,20 @@ const NormalDonate = (props: Props) => {
         lineHeight: '260px',
         textAlign: 'center',
         color: token.colorTextTertiary,
-        backgroundColor: token.colorFillAlter,
+        backgroundColor: '#FEE8C2',
         borderRadius: token.borderRadiusLG,
-        border: `1px dashed ${token.colorBorder}`,
+        border: `1px dashed #F89A85`,
         marginTop: 16,
       }}>
         {
           current === 0 && 
-          <div className='text-xl uppercase my-10 tracking-wider font-medium'>
+          <div className='text-xl uppercase my-10 tracking-wider font-medium text-red-400'>
             Thông tin nhà hảo tâm
           </div>
         }
         {
           current === 1 && 
-          <div className='text-xl uppercase my-10 tracking-wider font-medium'>
+          <div className='text-xl uppercase my-10 tracking-wider font-medium text-red-400'>
             Thông tin chuyển khoản
           </div>
         }
