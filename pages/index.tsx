@@ -15,7 +15,7 @@ import AboutImage from '../public/img/bg/about.svg'
 import ReadmoreButton from '@/components/common/ReadmoreButton'
 import AnimatedTextWord from '@/components/common/AnimatedTextWord';
 import { motion,useCycle } from "framer-motion";
-import { useState,useEffect } from 'react';
+import { useState,useEffect, Suspense } from 'react';
 import { Parallax } from 'react-scroll-parallax';
 import SignImage from '../public/img/bg/sign.svg'
 import Donate1 from '../public/img/bg/donate_1.png'
@@ -141,7 +141,7 @@ const  Home : NextPageWithLayout = () => {
 };
 
   return (
-    <>
+    <Suspense fallback={<>Loading....</>} >
         <div className="landing__intro relative w-screen h-screen">
           <div className="intro__bg"></div>
           <div className="intro__inner relative w-screen h-screen">
@@ -216,7 +216,7 @@ const  Home : NextPageWithLayout = () => {
                 }}}
               className="intro__statistic absolute top-0 right-[34vw]">
               <Link 
-                href="/report"
+                href="/reports"
                 onMouseEnter={() => setIsShownStatistic(true)}
                 onMouseLeave={() => setIsShownStatistic(false)}
                 className='relative'
@@ -584,7 +584,7 @@ const  Home : NextPageWithLayout = () => {
             <Arrow width={40 } className=' -rotate-90' style={{stroke: 'white'}} />
           </footer>
         </main>
-    </>
+    </Suspense >
   )
 }
 

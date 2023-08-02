@@ -17,14 +17,14 @@ const {Meta} = Card
 const renderContent = (content: string) => {
     // let sliceConent = `${content.slice(0,200)}...`
     return (
-      <p 
+      <div 
           className="mce-content-body"
           dangerouslySetInnerHTML={{
           __html: content,
           }}
       >
 
-      </p>
+      </div>
     )
   }
 
@@ -38,24 +38,27 @@ const Events = ({eventPosts}: Props) => {
         </h1>
         {
             eventPosts? 
-            <div className='flex justify-between h-[325px]'>
-                <div className="description">
-                    <div className='flex gap-5'>
-                        <p>{formatDateSendDB(eventPosts[0].updatedAt)}</p>
-                        <p>-</p>
-                        <p>{eventPosts[0].read_minute} phút đọc</p>
+            <Link href={`/posts/${eventPosts[0]?.id}`} >
+
+                <div className='flex justify-between h-[325px]'>
+                    <div className="description">
+                        <div className='flex gap-5'>
+                            <p>{formatDateSendDB(eventPosts[0].updatedAt)}</p>
+                            <p>-</p>
+                            <p>{eventPosts[0].read_minute} phút đọc</p>
+                        </div>
+                        <div className='text-3xl font-medium mt-3'>
+                            {eventPosts[0].title}
+                        </div>
+                        <div className='w-[500px] line-clamp-6 mt-6 leading-loose'>
+                            {renderContent(eventPosts[0].content)}
+                        </div>
                     </div>
-                    <div className='text-3xl font-medium mt-3'>
-                        {eventPosts[0].title}
-                    </div>
-                    <div className='w-[500px] line-clamp-6 mt-6 leading-loose'>
-                        {renderContent(eventPosts[0].content)}
+                    <div className="image">
+                        <Image src={eventPosts[0].thumbnail_url} alt='thumbnail' width={600} height={400}></Image>
                     </div>
                 </div>
-                <div className="image">
-                    <Image src={eventPosts[0].thumbnail_url} alt='thumbnail' width={600} height={400}></Image>
-                </div>
-            </div>
+            </Link>
             :
             null
         }
@@ -77,6 +80,8 @@ const Events = ({eventPosts}: Props) => {
                 key={item.id}
 
                 >
+                    <Link href={`/posts/${item?.id}`}>
+
                 <Card
                     bordered={false}
                     className='list-article__item-card'
@@ -88,7 +93,7 @@ const Events = ({eventPosts}: Props) => {
                 //   height : 300,
                 // }}
                 cover={
-                    <Image src={eventPosts[0].thumbnail_url} alt='thumbnail' width={250} height={200}></Image>
+                    <Image src={item?.thumbnail_url} alt='thumbnail' width={250} height={200}></Image>
                 }
                 // actions={[
                 //   <EyeOutlined key="detail" 
@@ -135,6 +140,7 @@ const Events = ({eventPosts}: Props) => {
                     </Row>
                     </div>
                 </Card>
+                </Link>
                 </List.Item>
             )}
         />

@@ -34,8 +34,8 @@ const mainMenuItems = [
     },
     {
         id: 4,
-        route : 'report',
-        text : 'report',
+        route : 'reports',
+        text : 'reports',
         subtext : 'Báo cáo tài chính',
         bg: 'https://firebasestorage.googleapis.com/v0/b/happy-children-6bac7.appspot.com/o/statistic.svg?alt=media&token=40f7e5fc-8749-4584-940d-0112631c4614&_gl=1*ihgjbx*_ga*MTQ2MTU5ODE4Ny4xNjg0MDQzMjcx*_ga_CW55HF8NVT*MTY4NTk2NDg3NC44LjEuMTY4NTk2NTM3Ny4wLjAuMA..'
     },
