@@ -1,4 +1,5 @@
 import NormalDonate from '@/components/donate/NormalDonate';
+import ItemReceiveTable from '@/components/reports/ItemReceiveTable';
 import ReceiveReport from '@/components/reports/ReceiveReport';
 import SpendReport from '@/components/reports/SpendReport';
 import { Tabs, TabsProps } from 'antd';
@@ -22,7 +23,7 @@ const ReportsPage = (props: Props) => {
     {
       key: '3',
       label: <div className='text-[#EB6446] text-base'>Hiện vật</div>,
-      children: '3', 
+      children: <ItemReceiveTable />, 
   },
   ];
 

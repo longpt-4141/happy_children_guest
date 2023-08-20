@@ -29,6 +29,7 @@ import Arrow from '../public/img/bg/arrow.svg'
 
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { TiSocialFacebook } from "react-icons/ti";
+import Seo from '@/components/common/seo'
 
 // const inter = Lato({ subsets: ['latin'] })
 
@@ -142,6 +143,14 @@ const  Home : NextPageWithLayout = () => {
 
   return (
     <Suspense fallback={<>Loading....</>} >
+        <Seo
+        data= {{
+          title : 'Happy Children',
+          description: "Nhiệm vụ của chúng tôi là gửi số tiền quyên góp đến với những trung tâm đang cần sự trợ giúp và báo cáo tài chính một cách mình bạch. ",
+          url:'https://happy-children-guest.vercel.app/',
+          thumbnail_url :'https://firebasestorage.googleapis.com/v0/b/happy-children-6bac7.appspot.com/o/about.jpg?alt=media&token=16170540-dce1-4290-a3e7-efdf5cae33e4'
+        }}
+        />
         <div className="landing__intro relative w-screen h-screen">
           <div className="intro__bg"></div>
           <div className="intro__inner relative w-screen h-screen">
@@ -384,10 +393,9 @@ const  Home : NextPageWithLayout = () => {
                       <Image src={Donate2} alt='donate_1' width={250} height={250} className="m-auto"></Image>
                     </div>
                     <dl className="font-Montserrat text-mainBlack mt-5">
-                        <dt className='md:text-xl font-semibold mb-4 text-center'>Chuyển khoản</dt>
+                        <dt className='md:text-xl font-semibold mb-4 text-center'>Chờ xét duyệt</dt>
                         <dd className='text-center text-[14px]'>
-                          Điền thông tin và chuyển khoản theo mã QR <br /> 
-                          hoặc số tài khoản đã được gán trên màn hình
+                          Bạn có thể chờ trong vài phút <br/> để chúng tôi kiểm tra giao dịch <br /> 
                         </dd>
                     </dl>
                   </li>
@@ -403,10 +411,10 @@ const  Home : NextPageWithLayout = () => {
                       <Image src={Donate3} alt='donate_1' width={250} height={250} className="m-auto"></Image>
                     </div>
                     <dl className="font-Montserrat text-mainBlack mt-5">
-                        <dt className='md:text-xl font-semibold mb-4 text-center'>Chuyển khoản</dt>
+                        <dt className='md:text-xl font-semibold mb-4 text-center'>Xem thông tin quyên góp</dt>
                         <dd className='text-center text-[14px]'>
-                          Điền thông tin và chuyển khoản theo mã QR <br /> 
-                          hoặc số tài khoản đã được gán trên màn hình
+                          Di chuyển đến trang báo cáo tài chính<br /> 
+                          Xem giao dịch của bạn trong bảng tiền thu
                         </dd>
                     </dl>
                   </li>
@@ -462,10 +470,10 @@ const  Home : NextPageWithLayout = () => {
                       <WWD3 alt='wwd_3' width={250} height={250} className="m-auto" />
                     </div>
                     <dl className="font-Montserrat text-mainBlack mt-5">
-                        <dt className='md:text-xl font-semibold mb-4 text-center'>Chuyển khoản</dt>
+                        <dt className='md:text-xl font-semibold mb-4 text-center'>Báo cáo thu chi </dt>
                         <dd className='text-center text-[14px]'>
-                          Điền thông tin <br /> và chuyển khoản theo mã QR <br /> 
-                          hoặc số tài khoản đã được gán trên màn hình. 
+                          Trung tâm báo cáo về chi tiêu <br /> 
+                          Happy Children sẽ duyệt báo cáo và công khai báo cáo 
                         </dd>
                     </dl>
                   </li>
@@ -481,10 +489,10 @@ const  Home : NextPageWithLayout = () => {
                       <WWD2 alt='wwd_2' width={250} height={250} className="m-auto" />
                     </div>
                     <dl className="font-Montserrat text-mainBlack mt-5">
-                        <dt className='md:text-xl font-semibold mb-4 text-center'>Chuyển khoản</dt>
+                        <dt className='md:text-xl font-semibold mb-4 text-center'>Duyệt yêu cầu</dt>
                         <dd className='text-center text-[14px]'>
-                          Điền thông tin và chuyển khoản theo mã QR <br /> 
-                          hoặc số tài khoản đã được gán trên màn hình
+                          Các trung tâm yêu cầu số tiền cần hỗ trợ <br /> 
+                          Xét duyệt yêu cầu và chuyển giao tiền mặt
                         </dd>
                     </dl>
                   </li>
@@ -500,10 +508,10 @@ const  Home : NextPageWithLayout = () => {
                       <WWD1 alt='wwd_1' width={300} height={300} className="m-auto" />
                     </div>
                     <dl className="font-Montserrat text-mainBlack mt-5">
-                        <dt className='md:text-xl font-semibold mb-4 text-center'>Chuyển khoản</dt>
+                        <dt className='md:text-xl font-semibold mb-4 text-center'>Quản lý quyên góp</dt>
                         <dd className='text-center text-[14px]'>
-                          Điền thông tin và chuyển khoản theo mã QR <br /> 
-                          hoặc số tài khoản đã được gán trên màn hình
+                          Xét duyệt/Từ chối quyên góp <br /> 
+                          thông qua thông tin giao dịch
                         </dd>
                     </dl>
                   </li>

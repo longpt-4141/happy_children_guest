@@ -1,13 +1,64 @@
 import { fetchTransaction } from "@/services/fetcher";
 import { formatRequestCreate } from "@/utils/date-format";
 import convertVNDMoney from "@/utils/money-format";
-import { Descriptions, List, Tooltip, Table, Button } from "antd";
+import { Descriptions, List, Tooltip, Table, Button, Row, Col, Select, Input, Pagination } from "antd";
 import { ColumnsType } from "antd/es/table";
-import React from "react";
+import React, {useState} from "react";
 import useSWR from "swr";
 import ButtonWrapper from "../button/ButtonWrapper";
+import { VscListFilter } from "react-icons/vsc";
 
 type Props = {};
+const months = [
+	{
+		label : 'tháng 1',
+		value : 1
+	},
+	{
+		label : 'tháng 2',
+		value : 2
+	},
+	{
+		label : 'tháng 3',
+		value : 3
+	},
+	{
+		label : 'tháng 4',
+		value : 4
+	},
+	{
+		label : 'tháng 5',
+		value : 5
+	},
+	{
+		label : 'tháng 6',
+		value : 6
+	},
+	{
+		label : 'tháng 7',
+		value : 7
+	},
+	{
+		label : 'tháng 8',
+		value : 8
+	},
+	{
+		label : 'tháng 9',
+		value : 9
+	},
+	{
+		label : 'tháng 10',
+		value : 10
+	},
+	{
+		label : 'tháng 11',
+		value : 11
+	},
+	{
+		label : 'tháng 12',
+		value : 12
+	},
+]
 
 interface reportObj {
 	readonly id: number;
@@ -23,9 +74,9 @@ interface reportObj {
 	readonly fund_name: string;
 }
 
-function useRegularReport() {
+function useRegularReport(offset: number, queryTimeParams: string, searchText: string) {
 	const { data, error, isLoading } = useSWR(
-		`/reports/guest-get-all-reports`,
+		`/reports/guest-get-all-reports?page=${offset * 10 - 10}${queryTimeParams}${searchText}`,
 		fetchTransaction
 	);
 
@@ -37,7 +88,37 @@ function useRegularReport() {
 }
 
 const SpendReport = (props: Props) => {
-	const { reportData, isReportLoading, isReportError } = useRegularReport();
+	const [offset, setOffset] = useState(1);
+	const [queryTimeParams, setTimeQueryParams] = useState('');
+	const [searchText, setSearchText] = useState('');
+	const [currentText, setCurrentText] = useState('')
+	const [timeFilterData, setTimeFilterData] = useState<string|number>('');
+	const { reportData, isReportLoading, isReportError } = useRegularReport(offset, queryTimeParams, searchText);
+
+	const handlePaginationChange = (value: any) => {
+		console.log({ value });
+		setOffset(value);
+	};
+
+
+	const onTimeFilterChange = (value: string|number) => {
+		console.log(`selected ${value}`);
+		setTimeQueryParams(`&time=${value}`)
+		setTimeFilterData(value)
+	}
+
+	const renderFilterOption = () => {
+		const d = new Date();
+		const currentMonth = d.getMonth();
+		return months.filter((item, index) => index <= currentMonth)
+	}
+
+	
+	const onSearchName = (value: string) => {
+		console.log(value);
+		setSearchText(`&username=${value}`);
+	}
+
 
 	const columns: ColumnsType<any> = [
 		{
@@ -131,7 +212,7 @@ const SpendReport = (props: Props) => {
 			render: (payment_file_url: string) => (
 				<Tooltip placement="topLeft" title="Nhấp để xem tài liệu">
 					<Button
-						className="report-list__table--button__delete flex items-center justify-center"
+						className="report-file flex items-center justify-center border-none !bg-white shadow-md hover:bg-mainPink"
 						// icon={<CloseOutlined/>}
 						shape="circle"
 					>
@@ -148,11 +229,65 @@ const SpendReport = (props: Props) => {
 				<h1 className="my-8 text-center text-xl uppercase font-medium">
 					Bảng thống kê tiền chi tiêu quỹ chung
 				</h1>
+				<div className="mt-8 mb-4">
+							<Row>
+								<Col
+									span={1}
+									style={{
+										display: "flex",
+										justifyContent: "space-evenly",
+										alignItems: "center",
+									}}
+								>
+									<VscListFilter
+										style={{
+											fontSize: "22px",
+											color: "var(--mainColor)",
+										}}
+									/>
+								</Col>
+								<Col span={4} offset={1}>
+									<Select
+										showSearch
+										placeholder="Thống kê theo"
+										optionFilterProp="children"
+										onChange={onTimeFilterChange}
+										defaultValue={timeFilterData === '' ? undefined : timeFilterData}
+										allowClear
+										filterOption={(input, option) =>
+											(option?.label ?? "")
+												.toString()
+												.toLowerCase()
+												.includes(input.toLowerCase())
+										}
+										// options={renderFilterOption()}
+									>
+											{
+												months.filter((item, index) => index <= (new Date()).getMonth()).map((month) => (
+												<Select.Option key={month.value}>
+														{
+															month.label
+														}
+												</Select.Option>
+													
+												))
+											}
+											<Select.Option value="today">
+												Hôm nay
+											</Select.Option>
+									</Select>
+								</Col>
+								<Col span={6} >
+									<Input.Search defaultValue={currentText} onChange={(e) => setCurrentText(e.target.value)} allowClear placeholder="Tìm kiếm theo tên" onSearch={onSearchName} enterButton />
+								</Col>
+							</Row>
+						</div>
 				<div>
 					{!isReportLoading ? (
+						<>
 						<Table
 							columns={columns}
-							dataSource={reportData.map(
+							dataSource={reportData.rows.map(
 								(data: any, index: number) => ({
 									stt: index + 1,
 									key: data.id,
@@ -164,27 +299,28 @@ const SpendReport = (props: Props) => {
 									...data,
 								})
 							)}
-							pagination={{
-								showSizeChanger: true,
-							}}
+							// pagination={{
+							// 	showSizeChanger: true,
+							// }}
 							expandable={{
 								expandedRowRender: (record: any) => (
 									<>
 										<Descriptions
-											title="Thông tin bổ sung"
+											title="Thông tin về các hóa đơn"
 											className="sub_description"
 										>
-											<Descriptions.Item label="Địa chỉ">
+											{/* <Descriptions.Item label="Địa chỉ">
 												{record.address}
 											</Descriptions.Item>
 											<Descriptions.Item label="Số điện thoại">
 												{record.phone_number}
-											</Descriptions.Item>
+											</Descriptions.Item> */}
 										</Descriptions>
 										<div>
 											<List
 												// itemLayout="horizontal"
 												dataSource={record.receipts}
+												className="border-solid border-1 border-red-400 rounded-lg bg-white shadow-sm"
 												renderItem={(
 													item: any,
 													index
@@ -199,19 +335,22 @@ const SpendReport = (props: Props) => {
 																</div>
 															}
 															description={
-																<div
-																	style={{
-																		color: "rgb(14 160 97)",
-																		fontWeight:
-																			"500",
-																		fontSize:
-																			"16px",
-																	}}
-																>
-																	{convertVNDMoney(
-																		item.pay_money
-																	)}
-																</div>
+																<>
+																	<div
+																		style={{
+																			color: "rgb(14 160 97)",
+																			fontWeight:
+																				"500",
+																			fontSize:
+																				"16px",
+																		}}
+																	>
+																		{convertVNDMoney(
+																			item.pay_money
+																		)}
+																	</div>
+																	<b>+ Thuế : {item.tax} %</b>
+																</>
 															}
 														/>
 													</List.Item>
@@ -222,8 +361,19 @@ const SpendReport = (props: Props) => {
 								),
 								// rowExpandable: true ,
 							}}
+							pagination={false}
 							// loading={listRequestData.isLoading}
 						></Table>
+												<Pagination
+							className="mt-4 px-2 float-right"
+							// defaultCurrent={1}
+							onChange={handlePaginationChange}
+							total={reportData.count}
+							// showTotal={(total) =>
+							// 	`Tổng cộng ${total} báo cáo`
+							// }
+						/>
+						</>
 					) : (
 						<></>
 					)}

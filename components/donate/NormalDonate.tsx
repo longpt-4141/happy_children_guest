@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { getBanksInfo, getQRCodeImage, sendDonateTransaction } from '@/services/donate';
 import Image from 'next/image';
 import { toastSuccess } from '@/utils/toast-popup';
+import { useRouter } from 'next/router';
 
 type Props = {}
 
 const NormalDonate = (props: Props) => {
+  const router = useRouter();
   const [form] = Form.useForm();
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
@@ -146,7 +148,7 @@ const NormalDonate = (props: Props) => {
           <div className='font-Montserrat'>
             <p className='text-base'>B1: Bạn hãy dùng điện thoại để quét mã QR</p>
             <i className='text-amber-500'>Lưu ý: Nên chuyển khoản đúng với số tiền đã nhập <br /> để thuận lợi trong việc quản lý</i>
-            <p className='mt-4 mb-4 text-base'>B2: sau khi chuyển khoản chờ trong 5-10p <br /> và kiểm tra mail cũng như trên website để thấy thông tin xác nhận chuyển khoản</p>
+            <p className='mt-4 mb-4 text-base'>B2: sau khi chuyển khoản chờ trong 5-10p </p>
             <p className='font-DancingScripts text-3xl'> Chúng tôi xin chân thành cảm ơn tấm lòng của bạn, Chúc bạn một ngày tốt lành ! </p>
           </div>
         </>
@@ -170,7 +172,8 @@ const NormalDonate = (props: Props) => {
           ...value
         }
         const res = await sendDonateTransaction(transaction);
-        toastSuccess('Bạn đã từ thiện thành công, trân thành cảm ơn tấm lòng của bạn !')
+        toastSuccess('Bạn đã từ thiện thành công, trân thành cảm ơn tấm lòng của bạn !, Hãy chờ 5-10p để xem kết quả ở màn hình thống kê nhé')
+		    router.push("/reports");
         console.log(res)
         setDonorInfo({
           ...donorInfo,

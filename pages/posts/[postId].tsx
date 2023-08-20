@@ -4,8 +4,14 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import { FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
-import {SwapLeftOutlined} from '@ant-design/icons';
+import {
+	FacebookIcon,
+	FacebookShareButton,
+	TwitterIcon,
+	TwitterShareButton,
+} from "react-share";
+import { SwapLeftOutlined } from "@ant-design/icons";
+import Seo from "@/components/common/seo";
 export interface PostDetailPageProps {
 	post: any;
 }
@@ -25,18 +31,25 @@ const renderContent = (content: string) => {
 	);
 };
 
-
 const PostDetailPage = ({ post }: PostDetailPageProps) => {
 	const router = useRouter();
 
-    const handleRedirect = () => {
-        router.push('/posts')
-    }
+	const handleRedirect = () => {
+		router.push("/posts");
+	};
 	// console.log(renderContent(post.content).toString().indexOf('  ') >= 0)
 
 	if (!post) return null;
 	return (
 		<>
+			<Seo
+				data={{
+					title: post.title,
+					description: post.title,
+					url: post.slug,
+					thumbnail_url: post.thumbnail_url,
+				}}
+			/>
 			<div className="pt-[10vw]">
 				<div className="title-textbox md:px-48 md:pb-32 ">
 					<div className="en font-black tracking-widest">
@@ -80,51 +93,53 @@ const PostDetailPage = ({ post }: PostDetailPageProps) => {
 						style={{ width: "100%", height: "auto" }}
 						alt=""
 					/>
-					<Row style={{
-                        justifyContent : 'space-between'
-                    }}>
-						<Col span={1}
-                            className="sticky top-5 pt-10"
-                        >
-                            <Space
-                                direction="vertical"
-                            >
-                                <FacebookShareButton
-                                    url={`${
-                                        process.env.NEXT_PUBLIC_API_URL_DEV ||
-                                        process.env.NEXT_PUBLIC_API_URL_PRODUCTION
-                                    }/news/${post.id}`}
-                                    quote={'Dummy text!'}
-                                    hashtag="#happy_children"
-                                    // className="sticky top-5"
-                                >
-                                    <FacebookIcon size={32} round />
-                                </FacebookShareButton>
-                                <TwitterShareButton
-                                    url={`${
-                                        process.env.NEXT_PUBLIC_API_URL_DEV ||
-                                        process.env.NEXT_PUBLIC_API_URL_PRODUCTION
-                                    }/news/${post.id}`}
-                                    hashtags={["happy_children"]}
-                                    >
-                                    <TwitterIcon size={32} round />
-                                </TwitterShareButton>
-                                <Divider />
-                                <Button
-                                    onClick={handleRedirect}
-                                    className='report-list__table--button__delete'
-                                    icon={<SwapLeftOutlined/>}
-                                    shape='circle'
-                                    style={{
-                                        display : "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center"
-                                    }}
-                                    // size='default'
-                                >    
-                                </Button>
-                            </Space>
-                        </Col>
+					<Row
+						style={{
+							justifyContent: "space-between",
+						}}
+					>
+						<Col span={1} className="sticky top-5 pt-10">
+							<Space direction="vertical">
+								<FacebookShareButton
+									url={`${
+										process.env.NEXT_PUBLIC_API_URL_DEV ||
+										process.env
+											.NEXT_PUBLIC_API_URL_PRODUCTION
+									}/news/${post.id}`}
+									quote={"Dummy text!"}
+									hashtag="#happy_children"
+									className="!bg-transparent"
+									// className="sticky top-5"
+								>
+									<FacebookIcon size={32} round />
+								</FacebookShareButton>
+								<TwitterShareButton
+									url={`${
+										process.env.NEXT_PUBLIC_API_URL_DEV ||
+										process.env
+											.NEXT_PUBLIC_API_URL_PRODUCTION
+									}/news/${post.id}`}
+									hashtags={["happy_children"]}
+									className="!bg-transparent"
+
+								>
+									<TwitterIcon size={32} round />
+								</TwitterShareButton>
+								<Divider />
+								<Button
+									onClick={handleRedirect}
+									className="report-list__table--button__delete"
+									icon={<SwapLeftOutlined />}
+									shape="circle"
+									style={{
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+									// size='default'
+								></Button>
+							</Space>
+						</Col>
 						<Col span={22}>
 							<div className="font-Montserrat mt-8 text-[16px]">
 								{renderContent(post.content)}

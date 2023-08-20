@@ -1,13 +1,13 @@
-import { Space, Tooltip, Table, Pagination, Row, Col, Select, Input } from "antd";
-import React, { useState, useEffect } from "react";
+import { fetchTransaction } from '@/services/fetcher';
+import { Col, Input, Row, Select, Tooltip, Table, Pagination } from 'antd';
+import { VscListFilter } from 'react-icons/vsc';
 import useSWR from "swr";
-import { fetchTransaction } from "@/services/fetcher";
-import { ColumnsType } from "antd/es/table";
-import convertVNDMoney from "@/utils/money-format";
-import { formatRequestCreate } from "@/utils/date-format";
-import { VscListFilter } from "react-icons/vsc";
+import React, { useState, useEffect } from "react";
+import { formatRequestCreate } from '@/utils/date-format';
+import convertVNDMoney from '@/utils/money-format';
+import { ColumnsType } from 'antd/es/table';
 
-type Props = {};
+type Props = {}
 
 interface TransactionObj {
 	readonly id: number;
@@ -15,9 +15,7 @@ interface TransactionObj {
 	readonly email: string;
 	readonly address?: string | null;
 	readonly phone_number?: string | null;
-	readonly send_amount: string;
-	readonly exact_amount: string;
-	readonly message?: string | null;
+	readonly description: string;
 	readonly createAt: string;
 	readonly updateAt: string;
     readonly fund_name : string;
@@ -74,10 +72,9 @@ const months = [
 	},
 ]
 
-
-function useFundTransaction(offset: number, queryTimeParams: string, searchText: string) {
+function useItemTransaction(offset: number, queryTimeParams: string, searchText: string) {
 	const { data, error, isLoading } = useSWR(
-		`/transaction/guest-get-fund-transaction?page=${offset * 10 - 10}${queryTimeParams}${searchText}`,
+		`/transaction/guest-get-item-transaction?page=${offset * 10 - 10}${queryTimeParams}${searchText}`,
 		fetchTransaction
 	);
 
@@ -88,16 +85,16 @@ function useFundTransaction(offset: number, queryTimeParams: string, searchText:
 	};
 }
 
-
-const ReceiveFundTable = (props: Props) => {
-	const [offset, setOffset] = useState(1);
+const ItemReceiveTable = (props: Props) => {
+    const [offset, setOffset] = useState(1);
 	const [queryTimeParams, setTimeQueryParams] = useState('');
 	const [searchText, setSearchText] = useState('');
 	const [currentText, setCurrentText] = useState('')
 	const [timeFilterData, setTimeFilterData] = useState<string|number>('');
-	const { donorsData, isLoading, isError } = useFundTransaction(offset, queryTimeParams, searchText);
+	const { donorsData, isLoading, isError } = useItemTransaction(offset, queryTimeParams, searchText);
 
-	const handlePaginationChange = (value: any) => {
+
+    const handlePaginationChange = (value: any) => {
 		console.log({ value });
 		setOffset(value);
 	};
@@ -159,54 +156,26 @@ const ReceiveFundTable = (props: Props) => {
 			),
 		},
 		{
-			title: "Số tiền",
-			dataIndex: "exact_amount",
-			key: "exact_amount",
-			width: "10%",
-			ellipsis: {
-				showTitle: true,
-			},
-			render: (exact_amount: string) => (
-				<>
-					<Tooltip
-						placement="topLeft"
-						title={convertVNDMoney(Number(exact_amount))}
-					>
-						<p
-							style={{
-								color: "rgb(14 160 97)",
-								fontWeight: "500",
-								fontSize: "16px",
-							}}
-						>
-							{" "}
-							+ {convertVNDMoney(Number(exact_amount))}
-						</p>
-					</Tooltip>
-				</>
-			),
-		},
-		{
-			title: "Lời nhắn",
-			dataIndex: "message",
-			key: "message",
+			title: "Nội dung quyên góp",
+			dataIndex: "description",
+			key: "description",
 			width: "15%",
 			ellipsis: {
 				showTitle: true,
 			},
 			responsive: ["md"],
-			render: (message: string) => (
+			render: (description: string) => (
 				<>
-					<Tooltip placement="topLeft" title={message}>
-						{message}
+					<Tooltip placement="topLeft" title={description}>
+						{description}
 					</Tooltip>
 				</>
 			),
 		},
 		{
-			title: "Ngày chuyển",
-			dataIndex: "createdAt",
-			key: "createdAt",
+			title: "Ngày được duyệt quyên góp",
+			dataIndex: "updatedAt",
+			key: "updatedAt",
 			width: "15%",
 			ellipsis: {
 				showTitle: true,
@@ -219,15 +188,16 @@ const ReceiveFundTable = (props: Props) => {
 		},
 	];
 
-	return (
-        <>
-            {
-                !isLoading ?
-                <div className="">
-                    <h1 className="my-8 text-center text-xl uppercase font-medium">
-                        Bảng thống kê giao dịch về quỹ sự kiện
-                    </h1>
-					<div className="mt-8 mb-4 fund-transaction">
+  return (
+    <div>
+        {isLoading ? (
+				<></>
+			) : (
+					<div className="item-transaction">
+						<h1 className="my-8 text-center text-xl uppercase font-medium">
+							Bảng thống kê các giao dịch về hiện vật
+						</h1>
+						<div className="mt-8 mb-4">
 							<Row>
 								<Col
 									span={1}
@@ -280,59 +250,32 @@ const ReceiveFundTable = (props: Props) => {
 								</Col>
 							</Row>
 						</div>
-                    <Table
-                        className="mt-10 font-Montserrat"
-                        columns={columns}
-                        dataSource={donorsData.DT.rows.map(
-                            (data: TransactionObj, index: number) => ({
-                                ...data,
-                                stt: 10 * offset - 10 + index + 1,
-                                key: data.id,
-                            })
-                        )}
-						summary={(pageData) => {
-							let totalReceivedMoney = 0;
+						<Table
+							className="mt-10 font-Montserrat"
+							columns={columns}
+							dataSource={donorsData.DT.rows.map(
+								(data: TransactionObj, index: number) => ({
+									...data,
+									stt: 10 * offset - 10 + index + 1,
+									key: data.id,
+								})
+							)}
+							pagination={false}
+							// loading={listRequestData.isLoading}
+						></Table>
+						<Pagination
+							className="mt-4 px-2 float-right"
+							// defaultCurrent={1}
+							onChange={handlePaginationChange}
+							total={donorsData.DT.count}
+							showTotal={(total) =>
+								`Tổng cộng ${total} giao dịch`
+							}
+						/>
+					</div>
+			)}
+    </div>
+  )
+}
 
-							pageData.forEach(({ exact_amount }) => {
-								totalReceivedMoney +=
-									parseInt(exact_amount);
-							});
-
-							return (
-								<>
-									<Table.Summary.Row>
-										<Table.Summary.Cell index={0}>
-											Tổng cộng
-										</Table.Summary.Cell>
-										<Table.Summary.Cell index={1}>
-											<div
-												style={{
-													color: "rgb(14 160 97)",
-													fontWeight: "500",
-													fontSize: "16px",
-												}}
-											>{convertVNDMoney(donorsData.DT.total_money)}</div>
-										</Table.Summary.Cell>
-									</Table.Summary.Row>
-								</>
-							);
-						}}
-                        pagination={false}
-                        // loading={listRequestData.isLoading}
-                    ></Table>
-                    <Pagination
-                        className="mt-4 px-2 float-right"
-                        // defaultCurrent={1}
-                        onChange={handlePaginationChange}
-                        total={donorsData.DT.count}
-                        showTotal={(total) => `Tổng cộng ${total} giao dịch`}
-                    />
-                </div>
-                : 
-                <></>
-            }
-        </>
-	);
-};
-
-export default ReceiveFundTable;
+export default ItemReceiveTable

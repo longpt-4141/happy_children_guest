@@ -76,7 +76,7 @@ const Events = ({eventPosts}: Props) => {
             dataSource={eventPosts.slice(1)}
             renderItem={(item, index) => (
                 <List.Item
-                className='list-article__item'
+                className='list-article__item hover:shadow-2xl hover:translate-x-2 hover:-translate-y-2 transition-all '
                 key={item.id}
 
                 >

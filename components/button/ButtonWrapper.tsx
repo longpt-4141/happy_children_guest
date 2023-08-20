@@ -7,7 +7,7 @@ type Props = {
 
 const ButtonWrapper = ({link}: Props) => {
   return (
-    <a href={link} target="_blank" className="button--link flex items-center justify-center" rel="noreferrer" >
+    <a href={link} target="_blank" className="button--link flex items-center justify-center text-red-50" rel="noreferrer" >
             {/* <Button 
                 type="primary" 
                 icon={<EyeTwoTone twoToneColor='#fff' />}

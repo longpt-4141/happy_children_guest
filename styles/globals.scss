@@ -323,3 +323,15 @@ table {
     // background : transparent !important;
   }
 }
+
+.item-transaction, .fund-transaction {
+  td {
+    button {
+      background-color: #fff !important;
+    }
+  }
+}
+
+.ant-pagination-item-link, .ant-table-row-expand-icon, .ant-table-row-expand-icon-expanded,.ant-table-row-expand-icon-collapsed  {
+  background-color: #fff !important;
+}

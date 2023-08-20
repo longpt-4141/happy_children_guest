@@ -36,21 +36,20 @@ const VisionCarosel = (props: Props) => {
                 <Vision2 width={300} height={300} />
             </div>
             <div className="text-white font-Montserrat">
-                <h3 className="font-medium text-xl mb-3">Học tập</h3>
+                <h3 className="font-medium text-xl mb-3">Ăn uống sinh hoạt</h3>
                 <div>
-                    Với số tiền ủng hộ, quỹ sẽ thúc đẩy <br/> và hỗ trợ để giúp các em được học tập đầy đủ <br/>
-                    Có đủ hành trang để giúp các em có nhiều cơ hội hơn <br/>
-                    trong tương lai, có thể là đại hoc, cao đẳng hoặc học nghề
+                    Với số tiền ủng hộ, các em sẽ có những bữa ăn dinh dưỡng <br/> được chăm sóc y tế đầy đủ <br/>
+                    Tổ chức các sự kiện cho các em nhân dịp lễ tết  <br/>
+                    thúc đẩy việc thể dục thể thao.
                 </div>
             </div>
         </div>
         <div className="!flex w-full !h-[460px] justify-evenly bg-[#2E9E9D] items-center">
         <div className="text-white font-Montserrat">
-                <h3 className="font-medium text-xl mb-3">Học tập</h3>
+                <h3 className="font-medium text-xl mb-3">Nhận nuôi</h3>
                 <div>
-                    Với số tiền ủng hộ, quỹ sẽ thúc đẩy <br/> và hỗ trợ để giúp các em được học tập đầy đủ <br/>
-                    Có đủ hành trang để giúp các em có nhiều cơ hội hơn <br/>
-                    trong tương lai, có thể là đại hoc, cao đẳng hoặc học nghề
+                    Đích đến xa hơn sẽ là những mái ấm mới cho các em <br />
+                    Tạo điều kiện nhận nuôi, tìm được cha mẹ phù hợp cho các em nhỏ.
                 </div>
             </div>
             <div className="">
